@@ -10,23 +10,21 @@ export const appSlise = createSlice({
         search: []
     },
     reducers: {
-        next: (state, action) => {
-            if (Boolean(action.payload)){
-                state.count = state.count + action.payload
-                state.slice = action.payload * 10
-            } else {
-                state.count = state.count + 1
-                state.slice = state.slice + 10
-            }
+        next: (state) => {
+            state.count = state.count + 1
+            state.slice = state.slice + 10
         },
-        back: (state, action) => {
-            if(Boolean(action.payload)){
-                state.count = state.count - 1
-                state.slice = action.payload * 10
-            }else{
-                state.count = state.count - 1
-                state.slice = state.slice - 10
-            }
+        back: (state) => {
+            state.count = state.count - 1
+            state.slice = state.slice - 10
+        },
+        nextBtn: (state, action) => {
+            state.count = state.count + action.payload
+            state.slice = action.payload * 10
+        },
+        backBtn: (state, action) => {
+            state.count = state.count - 1
+            state.slice = action.payload * 10
         },
         allData: (state, action) => {
             state.data = action.payload
@@ -34,9 +32,8 @@ export const appSlise = createSlice({
         search: (state, action) => {
             state.search = action.payload
         }
-
     }
 })
 
-export const { next, back, allData, search } = appSlise.actions;
+export const { next, back, allData, search, nextBtn, backBtn } = appSlise.actions;
 export const appReducer = appSlise.reducer;

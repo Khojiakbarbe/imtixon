@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { allData, back, next } from '../features/appSlice'
+import { allData, back, backBtn, next, nextBtn } from '../features/appSlice'
 import axios from 'axios';
 import Search from './Search';
 
@@ -58,12 +58,12 @@ function Table() {
         }
         setBtn(e)
         e.target.classList.add('text-[gray]')
-        
+
         let action = 0;
         setPaginations(paginations.map(p => {
             if (e.target.value >= paginations[3]) {
                 if (action == 0) {
-                    dispatch(next(+e.target.value + 1))
+                    dispatch(nextBtn(+e.target.value + 1))
                     navigate(`/${+e.target.value + 1}`)
                     action++
                 }
@@ -71,22 +71,19 @@ function Table() {
             } else {
                 if (p > -1) {
                     if (action == 0) {
-                        dispatch(back(+e.target.value + 1))
+                        dispatch(backBtn(+e.target.value + 1))
                         navigate(`/${+e.target.value + 1}`)
                         action++
                     }
-                    if(p != 3 && p != 2 && p !=1 ){
+                    if (p != 3 && p != 2 && p != 1) {
                         return p - 1
-                    }else{
+                    } else {
                         return p
                     }
                 }
             }
         }))
-
     }
-
-    console.log(current.count);
 
     return (
         <div className='my-5'>
@@ -106,7 +103,7 @@ function Table() {
             </div>
             <div className='container m-[0_auto] mt-5 px-5'>
                 {
-                    data ?
+                    current.count != 10 ?
                         data?.slice(current.slice, current.slice + 10).map((p, ind) => {
                             return (
                                 <div key={ind} className='grid grid-cols-[auto_1fr]'>
@@ -119,7 +116,7 @@ function Table() {
                             )
                         })
                         :
-                        <h1>NOt FOUNDED</h1>
+                        <h1>Not FOUNDED</h1>
                 }
             </div>
             <div className='flex justify-between px-5 mt-5 text-[10px] sm:text-xs md:text-base lg:text-lg'>
@@ -127,7 +124,7 @@ function Table() {
                 <div className='flex gap-1 md:gap-4 font-[Roboto] font-bold'>
                     {paginations.map(p => <button key={p} value={p} onClick={(e) => paginate(e)} className='p-1 md:px-4 md:py-2 text-[10px] sm:text-xs md:text-base lg:text-lg'>{p + 1}</button>)}
                 </div>
-                <button onClick={navigateNext}>Next</button>
+                <button className='font-bold' onClick={navigateNext}>Next</button>
             </div>
         </div>
     )
