@@ -89,14 +89,14 @@ function Table() {
         <div className='my-5'>
             <Search />
             <div className='grid text-xs sm:text-sm md:text-2xl gap-3 w-ull p-5 bg-[#474955]  grid-cols-[auto_1fr]'>
-                <select className='text-white bg-[unset]'>
+                <select className='text-white bg-[unset]' disabled>
                     <option value="id">ID</option>
                 </select>
                 <div className='flex justify-around'>
-                    <select className='bg-[unset] text-white'>
+                    <select disabled className='bg-[unset] text-white'>
                         <option value="">Заголовок</option>
                     </select>
-                    <select className='bg-[unset] text-white'>
+                    <select disabled className='bg-[unset] text-white'>
                         <option value="">Описание</option>
                     </select>
                 </div>
