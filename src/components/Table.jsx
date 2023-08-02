@@ -141,7 +141,7 @@ function Table() {
                         sort Title
                     </button>
                     <button onClick={() => sortByTitle(false)} className='text-white'>
-                        sort Title
+                        sort Body
                     </button>
                 </div>
             </div>
