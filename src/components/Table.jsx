@@ -68,19 +68,22 @@ function Table() {
                     action++
                 }
                 return p = p + 1
-            } else {
+            } else if (paginations[0] != 0) {
                 if (p > -1) {
                     if (action == 0) {
                         dispatch(backBtn(+e.target.value + 1))
                         navigate(`/${+e.target.value + 1}`)
                         action++
                     }
-                    if (p != 3 && p != 2 && p != 1) {
-                        return p - 1
-                    } else {
-                        return p
-                    }
+                    return p - 1
                 }
+            } else {
+                if (action == 0) {
+                    dispatch(backBtn(+e.target.value + 1))
+                    navigate(`/${+e.target.value + 1}`)
+                    action++
+                }
+                return p
             }
         }))
     }
