@@ -88,29 +88,70 @@ function Table() {
         }))
     }
 
+
+    // sort by id 1-100 || 100-1
+    const [id, setId] = useState(true)
+    function sortById() {
+        setId(!id)
+        if (id) {
+            const all = [...data]
+            const sort = all.sort((a, b) => b.id - a.id)
+            setData(sort)
+        } else {
+            const all = [...data]
+            const sort = all.sort((a, b) => a.id - b.id)
+            setData(sort)
+        }
+    }
+
+    const [sortTitleBody, setSortTitleBody] = useState(true)
+    function sortByTitle(e) {
+        setSortTitleBody(!sortTitleBody)
+        if (sortTitleBody) {
+            const currentData = [...data]
+            if (e) {
+                const sort = currentData.sort((a, b) => b.title.localeCompare(a.title))
+                setData(sort)
+            } else {
+                const sort = currentData.sort((a, b) => b.body.localeCompare(a.body))
+                setData(sort)
+            }
+        } else {
+            const currentData = [...data]
+            if (e) {
+                const sort = currentData.sort((a, b) => a.title.localeCompare(b.title))
+                setData(sort)
+            } else {
+                const sort = currentData.sort((a, b) => a.body.localeCompare(b.body))
+                setData(sort)
+            }
+        }
+    }
+
+
     return (
         <div className='my-5'>
             <Search />
             <div className='grid text-xs sm:text-sm md:text-2xl gap-3 w-ull p-5 bg-[#474955]  grid-cols-[auto_1fr]'>
-                <select className='text-white bg-[unset]' disabled>
-                    <option value="id">ID</option>
-                </select>
+                <button onClick={sortById} className='text-white'>
+                    ID
+                </button>
                 <div className='flex justify-around'>
-                    <select disabled className='bg-[unset] text-white'>
-                        <option value="">Заголовок</option>
-                    </select>
-                    <select disabled className='bg-[unset] text-white'>
-                        <option value="">Описание</option>
-                    </select>
+                    <button onClick={() => sortByTitle(true)} className='text-white'>
+                        sort Title
+                    </button>
+                    <button onClick={() => sortByTitle(false)} className='text-white'>
+                        sort Title
+                    </button>
                 </div>
             </div>
             <div className='container m-[0_auto] mt-5 px-5'>
                 {
                     current.count != 10 ?
-                        data?.slice(current.slice, current.slice + 10).map((p, ind) => {
+                        data?.slice(current.slice, current.slice + 10).map(p => {
                             return (
-                                <div key={ind} className='grid grid-cols-[auto_1fr]'>
-                                    <h1 className='text-[10px] sm:text-xs md:text-base lg:text-lg  border px-6 flex items-center p-1 lg:h-[70px]'>{ind + 1}</h1>
+                                <div key={p.id} className='grid grid-cols-[auto_1fr]'>
+                                    <h1 className='text-[10px] sm:text-xs md:text-base lg:text-lg  border px-6 flex items-center p-1 lg:h-[70px]'>{p.id}</h1>
                                     <div className='grid grid-cols-2'>
                                         <h1 className='border text-[8px] sm:text-xs md:text-xs lg:text-[13px] flex items-center p-1 lg:h-[70px]'>{p.title}</h1>
                                         <h1 className='border text-[8px] sm:text-xs md:text-xs lg:text-[13px] flex items-center p-1 lg:h-[70px]'>{p.body}</h1>
